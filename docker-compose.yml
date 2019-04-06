@@ -1,0 +1,25 @@
+version: '2'
+networks:
+  bridge:
+    driver: bridge
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - ./db:/data/db
+      - ./configdb:/data/configdb
+    ports:
+      - '27017:27017'
+
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    links:
+      - 'mongodb:mongo'
+    ports:
+      - '8081:8081'
+volumes:
+  mongo-db:
+    driver: local
